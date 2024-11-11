@@ -91,8 +91,7 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
-
-    if (deactivation.AccountId == null) AccountLog = [
+    AccountLog = [
         new (
           Type: "DEACTIVATE",
           Message: deactivation.Reason.ToString(),
