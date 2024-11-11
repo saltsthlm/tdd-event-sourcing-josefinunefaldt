@@ -1,4 +1,5 @@
-﻿using EventSourcing.Events;
+﻿using System.Runtime.Serialization;
+using EventSourcing.Events;
 using EventSourcing.Exceptions;
 using EventSourcing.Models;
 
@@ -14,7 +15,7 @@ public class AccountAggregate
   public AccountStatus Status { get; set; }
   public List<LogMessage>? AccountLog { get; set; }
 
-  private AccountAggregate(){}
+  private AccountAggregate() { }
 
   public static AccountAggregate? GenerateAggregate(Event[] events)
   {
@@ -22,13 +23,11 @@ public class AccountAggregate
     {
       return null;
     }
-    
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
       account.Apply(accountEvent);
     }
-
     return account;
   }
 
@@ -42,10 +41,13 @@ public class AccountAggregate
       case DepositEvent deposit:
         Apply(deposit);
         break;
+      case WithdrawalEvent events:
+        Apply(events);
+        break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
     }
-  } 
+  }
 
   private void Apply(AccountCreatedEvent accountCreated)
   {
@@ -57,12 +59,20 @@ public class AccountAggregate
 
   private void Apply(DepositEvent deposit)
   {
+    if (AccountId == null)
+    {
+      throw new Exception("128*");
+    }
+    if (Balance < deposit.Amount)
+    {
+      throw new Exception("281*");
+    }
     Balance += deposit.Amount;
   }
 
   private void Apply(WithdrawalEvent wihdrawal)
   {
-    throw new NotImplementedException();
+    Balance -= wihdrawal.amount;
   }
 
   private void Apply(DeactivationEvent deactivation)

@@ -13,7 +13,7 @@ namespace EventSourcing.Events;
 [JsonDerivedType(typeof(InvalidEvent), typeDiscriminator: "unsupported-event")]
 public partial record Event
 {
-  [JsonPropertyName("eventId")] 
+  [JsonPropertyName("eventId")]
   public required int EventId { get; init; }
 
   [JsonPropertyName("timestamp")]
@@ -22,4 +22,4 @@ public partial record Event
   [JsonPropertyName("accountId")]
   public required string AccountId { get; init; }
 }
-  
+
