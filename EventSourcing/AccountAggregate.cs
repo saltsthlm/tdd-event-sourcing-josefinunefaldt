@@ -72,7 +72,16 @@ public class AccountAggregate
 
   private void Apply(WithdrawalEvent wihdrawal)
   {
+    if (AccountId == null)
+    {
+      throw new Exception("128*");
+    }
+
     Balance -= wihdrawal.amount;
+    if (Balance < 0)
+    {
+      throw new Exception("285*");
+    }
   }
 
   private void Apply(DeactivationEvent deactivation)
