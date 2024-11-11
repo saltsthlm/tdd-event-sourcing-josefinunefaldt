@@ -2,6 +2,7 @@
 using EventSourcing.Events;
 using EventSourcing.Exceptions;
 using EventSourcing.Models;
+using Microsoft.VisualBasic;
 
 namespace EventSourcing;
 
@@ -90,6 +91,14 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
+
+    if (deactivation.AccountId == null) AccountLog = [
+        new (
+          Type: "DEACTIVATE",
+          Message: deactivation.Reason.ToString(),
+          Timestamp: deactivation.Timestamp
+        ),
+      ];
   }
 
   private void Apply(ActivationEvent activation)
