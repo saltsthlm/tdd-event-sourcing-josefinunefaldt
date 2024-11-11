@@ -300,7 +300,7 @@ public class AccountAggregateTEst
     // Assert
     result.Message.Should().StartWith("344");
   }
-
+  //KAN TAS BORT!!!!
   [Fact]
   public async void ActivateEvent_Should_ActivateADeactivatedAccount()
   {

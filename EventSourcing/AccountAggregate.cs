@@ -123,7 +123,15 @@ public class AccountAggregate
 
   private void Apply(ActivationEvent activation)
   {
-    Status = AccountStatus.Enabled;
+    if (AccountLog == null)
+    {
+      AccountLog = new List<LogMessage>();
+    }
+    AccountLog.Add(new LogMessage("ACTIVATE", "Account reactivated", activation.Timestamp));
+    if (Status == AccountStatus.Disabled)
+    {
+      Status = AccountStatus.Enabled;
+    }
 
   }
 
