@@ -41,8 +41,11 @@ public class AccountAggregate
       case DepositEvent deposit:
         Apply(deposit);
         break;
-      case WithdrawalEvent events:
-        Apply(events);
+      case WithdrawalEvent withdrawalEventevents:
+        Apply(withdrawalEventevents);
+        break;
+      case DeactivationEvent deactivationEvent:
+        Apply(deactivationEvent);
         break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
@@ -86,7 +89,7 @@ public class AccountAggregate
 
   private void Apply(DeactivationEvent deactivation)
   {
-    throw new NotImplementedException();
+    Status = AccountStatus.Disabled;
   }
 
   private void Apply(ActivationEvent activation)
