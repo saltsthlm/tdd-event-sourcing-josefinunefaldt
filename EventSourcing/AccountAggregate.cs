@@ -26,9 +26,16 @@ public class AccountAggregate
     {
       return null;
     }
+    int eventId = 1;
+
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
+      if (accountEvent.EventId != eventId)
+      {
+        throw new Exception("511 ERROR_INVALID_EVENT_STREAM");
+      }
+      eventId++;
       account.Apply(accountEvent);
     }
     return account;
