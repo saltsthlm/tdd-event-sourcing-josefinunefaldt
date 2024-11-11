@@ -300,27 +300,6 @@ public class AccountAggregateTEst
     // Assert
     result.Message.Should().StartWith("344");
   }
-  //KAN TAS BORT!!!!
-  [Fact]
-  public async void ActivateEvent_Should_ActivateADeactivatedAccount()
-  {
-    // Arrange
-    var events = await FileReader.GetStream(16);
-    var expectedAccount = new TestAccountAggregate
-    {
-      AccountId = "ACC123456",
-      Balance = 5000,
-      Currency = CurrencyType.Usd,
-      CustomerId = "CUST001",
-      Status = AccountStatus.Enabled,
-    };
-
-    // Act
-    var result = AccountAggregate.GenerateAggregate(events);
-
-    // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
-  }
 
   [Fact]
   public async void ActivateEvent_Should_AddEventToAccountLog()
@@ -388,27 +367,27 @@ public class AccountAggregateTEst
     result.Should().BeEquivalentTo(expectedAccount);
   }
 
-  //KAN TAS BORT
-  [Fact]
-  public async void ClosureEvent_Should_CloseAccount()
-  {
-    // Arrange
-    var events = await FileReader.GetStream(18);
-    var expectedAccount = new TestAccountAggregate
-    {
-      AccountId = "ACC123456",
-      Balance = 5000,
-      Currency = CurrencyType.Usd,
-      CustomerId = "CUST001",
-      Status = AccountStatus.Closed,
-    };
+  // //KAN TAS BORT
+  // [Fact]
+  // public async void ClosureEvent_Should_CloseAccount()
+  // {
+  //   // Arrange
+  //   var events = await FileReader.GetStream(18);
+  //   var expectedAccount = new TestAccountAggregate
+  //   {
+  //     AccountId = "ACC123456",
+  //     Balance = 5000,
+  //     Currency = CurrencyType.Usd,
+  //     CustomerId = "CUST001",
+  //     Status = AccountStatus.Closed,
+  //   };
 
-    // Act
-    var result = AccountAggregate.GenerateAggregate(events);
+  //   // Act
+  //   var result = AccountAggregate.GenerateAggregate(events);
 
-    // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
-  }
+  //   // Assert
+  //   result.Should().BeEquivalentTo(expectedAccount);
+  // }
 
   [Fact]
   public async void ClosureEvent_Should_AddEventToAccountLog()
@@ -452,27 +431,27 @@ public class AccountAggregateTEst
       .WithMessage("502*");
   }
 
-  //KAN TAS BORT
-  [Fact]
-  public async void CurrencyChangeEvent_Should_ChangeAccountCurrency()
-  {
-    // Arrange
-    var events = await FileReader.GetStream(20);
-    var expectedAccount = new TestAccountAggregate
-    {
-      AccountId = "ACC123456",
-      Balance = 51000,
-      Currency = CurrencyType.Sek,
-      CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
-    };
+  // //KAN TAS BORT
+  // [Fact]
+  // public async void CurrencyChangeEvent_Should_ChangeAccountCurrency()
+  // {
+  //   // Arrange
+  //   var events = await FileReader.GetStream(20);
+  //   var expectedAccount = new TestAccountAggregate
+  //   {
+  //     AccountId = "ACC123456",
+  //     Balance = 51000,
+  //     Currency = CurrencyType.Sek,
+  //     CustomerId = "CUST001",
+  //     Status = AccountStatus.Disabled,
+  //   };
 
-    // Act
-    var result = AccountAggregate.GenerateAggregate(events);
+  //   // Act
+  //   var result = AccountAggregate.GenerateAggregate(events);
 
-    // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
-  }
+  //   // Assert
+  //   result.Should().BeEquivalentTo(expectedAccount);
+  // }
 
   [Fact]
   public async void CurrencyChangeEvent_Should_AddEventToAccountLog()

@@ -27,7 +27,6 @@ public class AccountAggregate
       return null;
     }
     int eventId = 1;
-
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
