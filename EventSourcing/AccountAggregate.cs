@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using EventSourcing.Events;
 using EventSourcing.Exceptions;
 using EventSourcing.Models;
@@ -91,13 +92,17 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
-    AccountLog = [
-        new (
-          Type: "DEACTIVATE",
-          Message: deactivation.Reason.ToString(),
-          Timestamp: deactivation.Timestamp
-        ),
-      ];
+
+    if (deactivation.AccountId != null)
+    {
+      var logMessage = new LogMessage("DEACTIVATE", deactivation.Reason.ToString(), deactivation.Timestamp);
+      var log = new List<LogMessage>
+      {
+          logMessage
+      };
+      AccountLog = log;
+    }
+
   }
 
   private void Apply(ActivationEvent activation)
