@@ -159,6 +159,11 @@ public class AccountAggregate
     Balance = currencyChange.NewBalance;
     Currency = currencyChange.NewCurrency;
     Status = AccountStatus.Disabled;
+    if (AccountLog == null)
+    {
+      AccountLog = new List<LogMessage>();
+    }
+    AccountLog.Add(new LogMessage("CURRENCY-CHANGE", "Change currency from 'USD' to 'SEK'", currencyChange.Timestamp));
   }
 
   private void Apply(ClosureEvent closure)
