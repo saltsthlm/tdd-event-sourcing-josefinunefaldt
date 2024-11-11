@@ -49,6 +49,9 @@ public class AccountAggregate
       case DeactivationEvent deactivationEvent:
         Apply(deactivationEvent);
         break;
+      case ActivationEvent activationEvent:
+        Apply(activationEvent);
+        break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
     }
@@ -64,6 +67,14 @@ public class AccountAggregate
 
   private void Apply(DepositEvent deposit)
   {
+    if (Status != AccountStatus.Disabled)
+    {
+      Balance += deposit.Amount;
+    }
+    else
+    {
+      throw new Exception("344*");
+    }
     if (AccountId == null)
     {
       throw new Exception("128*");
@@ -72,11 +83,12 @@ public class AccountAggregate
     {
       throw new Exception("281*");
     }
-    Balance += deposit.Amount;
+
   }
 
   private void Apply(WithdrawalEvent wihdrawal)
   {
+
     if (AccountId == null)
     {
       throw new Exception("128*");
@@ -87,6 +99,7 @@ public class AccountAggregate
     {
       throw new Exception("285*");
     }
+
   }
 
   private void Apply(DeactivationEvent deactivation)
@@ -102,7 +115,8 @@ public class AccountAggregate
 
   private void Apply(ActivationEvent activation)
   {
-    throw new NotImplementedException();
+    Status = AccountStatus.Enabled;
+
   }
 
   private void Apply(CurrencyChangeEvent currencyChange)
