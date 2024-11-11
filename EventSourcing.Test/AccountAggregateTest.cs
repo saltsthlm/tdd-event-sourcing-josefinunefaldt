@@ -354,7 +354,7 @@ public class AccountAggregateTEst
     // Assert
     result.Should().BeEquivalentTo(expectedAccount);
   }
-
+  //KAN TAS BORT
   [Fact]
   public async void ActivateEvent_ShouldNot_AddEventToAccountLog_IfAccountIsAlreadyActive()
   {
@@ -388,6 +388,7 @@ public class AccountAggregateTEst
     result.Should().BeEquivalentTo(expectedAccount);
   }
 
+  //KAN TAS BORT
   [Fact]
   public async void ClosureEvent_Should_CloseAccount()
   {
@@ -451,6 +452,7 @@ public class AccountAggregateTEst
       .WithMessage("502*");
   }
 
+  //KAN TAS BORT
   [Fact]
   public async void CurrencyChangeEvent_Should_ChangeAccountCurrency()
   {

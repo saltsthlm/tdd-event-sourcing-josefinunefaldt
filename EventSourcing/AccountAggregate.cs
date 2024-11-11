@@ -81,18 +81,6 @@ public class AccountAggregate
 
   private void Apply(DepositEvent deposit)
   {
-    if (Status != AccountStatus.Disabled)
-    {
-      Balance += deposit.Amount;
-    }
-    else
-    {
-      throw new Exception("344*");
-    }
-    if (Status == AccountStatus.Closed)
-    {
-      throw new Exception("502*");
-    }
     if (AccountId == null)
     {
       throw new Exception("128*");
@@ -101,7 +89,18 @@ public class AccountAggregate
     {
       throw new Exception("281*");
     }
-
+    if (Status != AccountStatus.Disabled)
+    {
+      Balance += deposit.Amount;
+    }
+    if (Status == AccountStatus.Disabled)
+    {
+      throw new Exception("344*");
+    }
+    if (Status == AccountStatus.Closed)
+    {
+      throw new Exception("502*");
+    }
   }
 
   private void Apply(WithdrawalEvent wihdrawal)
@@ -152,6 +151,10 @@ public class AccountAggregate
     if (AccountLog == null)
     {
       AccountLog = new List<LogMessage>();
+    }
+    if (Status == AccountStatus.Enabled)
+    {
+      return;
     }
     AccountLog.Add(new LogMessage("ACTIVATE", "Account reactivated", activation.Timestamp));
     if (Status == AccountStatus.Disabled)
