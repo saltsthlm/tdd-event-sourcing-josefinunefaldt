@@ -92,16 +92,11 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
-
-    if (deactivation.AccountId != null)
+    if (AccountLog == null)
     {
-      var logMessage = new LogMessage("DEACTIVATE", deactivation.Reason.ToString(), deactivation.Timestamp);
-      var log = new List<LogMessage>
-      {
-          logMessage
-      };
-      AccountLog = log;
+      AccountLog = new List<LogMessage>();
     }
+    AccountLog.Add(new LogMessage("DEACTIVATE", deactivation.Reason.ToString(), deactivation.Timestamp));
 
   }
 
