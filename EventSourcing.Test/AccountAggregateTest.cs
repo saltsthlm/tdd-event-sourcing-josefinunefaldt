@@ -469,7 +469,7 @@ public class AccountAggregateTEst
     var result = AccountAggregate.GenerateAggregate(events);
 
     // Assert
-    result.Should().Be(expectedAccount);
+    result.Should().BeEquivalentTo(expectedAccount);
   }
 
   [Fact]

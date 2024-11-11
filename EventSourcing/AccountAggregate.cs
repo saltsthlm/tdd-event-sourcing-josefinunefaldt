@@ -17,6 +17,7 @@ public class AccountAggregate
   public AccountStatus Status { get; set; }
   public List<LogMessage>? AccountLog { get; set; }
 
+
   private AccountAggregate() { }
 
   public static AccountAggregate? GenerateAggregate(Event[] events)
@@ -54,6 +55,9 @@ public class AccountAggregate
         break;
       case ClosureEvent closureEvent:
         Apply(closureEvent);
+        break;
+      case CurrencyChangeEvent currencyChangeEvent:
+        Apply(currencyChangeEvent);
         break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
@@ -152,7 +156,9 @@ public class AccountAggregate
 
   private void Apply(CurrencyChangeEvent currencyChange)
   {
-    throw new NotImplementedException();
+    Balance = currencyChange.NewBalance;
+    Currency = currencyChange.NewCurrency;
+    Status = AccountStatus.Disabled;
   }
 
   private void Apply(ClosureEvent closure)
