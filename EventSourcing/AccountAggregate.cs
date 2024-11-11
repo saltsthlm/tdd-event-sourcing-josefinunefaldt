@@ -88,13 +88,21 @@ public class AccountAggregate
 
   private void Apply(WithdrawalEvent wihdrawal)
   {
+    if (Status != AccountStatus.Disabled)
+    {
+      Balance -= wihdrawal.amount;
+    }
+    else
+    {
+      throw new Exception("344");
+    }
 
     if (AccountId == null)
     {
       throw new Exception("128*");
     }
 
-    Balance -= wihdrawal.amount;
+
     if (Balance < 0)
     {
       throw new Exception("285*");
