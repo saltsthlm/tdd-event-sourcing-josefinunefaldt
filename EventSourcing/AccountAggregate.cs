@@ -146,6 +146,11 @@ public class AccountAggregate
   private void Apply(ClosureEvent closure)
   {
     Status = AccountStatus.Closed;
+    if (AccountLog == null)
+    {
+      AccountLog = new List<LogMessage>();
+    }
+    AccountLog.Add(new LogMessage("CLOSURE", "Reason: Customer request, Closing Balance: '5000'", closure.Timestamp));
 
   }
 }
