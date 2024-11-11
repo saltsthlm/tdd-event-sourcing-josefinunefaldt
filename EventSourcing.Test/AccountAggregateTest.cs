@@ -438,7 +438,7 @@ public class AccountAggregateTEst
   }
 
   [Fact]
-  public async void Events_Should_Throw_IfAppledOnClosedAccount()
+  public async void Events_Should_Throw_IfAppliedOnClosedAccount()
   {
     // Arrange
     var events = await FileReader.GetStream(19);

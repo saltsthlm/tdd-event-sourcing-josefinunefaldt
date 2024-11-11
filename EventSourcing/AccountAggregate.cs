@@ -78,6 +78,10 @@ public class AccountAggregate
     {
       throw new Exception("344*");
     }
+    if (Status == AccountStatus.Closed)
+    {
+      throw new Exception("502*");
+    }
     if (AccountId == null)
     {
       throw new Exception("128*");
@@ -104,6 +108,10 @@ public class AccountAggregate
     {
       throw new Exception("128*");
     }
+    if (Status == AccountStatus.Closed)
+    {
+      throw new Exception("502*");
+    }
 
 
     if (Balance < 0)
@@ -115,6 +123,10 @@ public class AccountAggregate
 
   private void Apply(DeactivationEvent deactivation)
   {
+    if (Status == AccountStatus.Closed)
+    {
+      throw new Exception("502*");
+    }
     Status = AccountStatus.Disabled;
     if (AccountLog == null)
     {
